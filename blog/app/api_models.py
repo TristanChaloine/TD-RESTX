@@ -6,3 +6,13 @@ article_model = api.model("Article", {
     "title": fields.String,
     "content": fields.String
 })
+
+comment_model = api.model("Comment", {
+    "id": fields.Integer,
+    "content": fields.String
+})
+
+article_input_model = api.model("ArticleInput", {
+    "title": fields.String,
+    "content": fields.String
+})

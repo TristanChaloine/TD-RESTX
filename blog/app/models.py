@@ -20,3 +20,12 @@ class Comment(db.Model):
 
 def get_all_articles () :
     return Article.query.all()
+
+def get_all_comments () :
+    return Comment.query.all()
+
+def create_article (title, content) :
+    article = Article(title=title, content=content)
+    db.session.add(article)
+    db.session.commit()
+    return article
