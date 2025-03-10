@@ -17,3 +17,6 @@ class Comment(db.Model):
     
     # Relation avec Article
     article = db.relationship("Article", back_populates="comments")
+
+def get_all_articles () :
+    return Article.query.all()
