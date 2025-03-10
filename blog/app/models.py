@@ -18,14 +18,27 @@ class Comment(db.Model):
     # Relation avec Article
     article = db.relationship("Article", back_populates="comments")
 
-def get_all_articles () :
+def get_all_articles():
     return Article.query.all()
 
-def get_all_comments () :
+def get_article(id) :
+    return Article.query.get(id)
+
+def get_all_comments():
     return Comment.query.all()
 
-def create_article (title, content) :
+def get_comment(id) :
+    return Comment.query.get(id)
+
+def create_article(title, content) :
     article = Article(title=title, content=content)
     db.session.add(article)
     db.session.commit()
     return article
+
+def create_comment(content, article_id) :
+    comment = Comment(content=content, article_id=
+    article_id)
+    db.session.add(comment)
+    db.session.commit()
+    return comment
