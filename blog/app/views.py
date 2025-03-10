@@ -35,6 +35,16 @@ class ArticleItem(Resource):
         if article is None:
             abort(404, "Article not found")
         return article
+    
+    ns.expect(article_input_model)
+    @ns.marshal_with(article_model)
+    def put(self, id):
+        article = modify_article(id, ns.payload["title"], content=ns.payload["content"])
+        
+        if article is None:
+            abort(404, "Article not found")
+        
+        return article, 200
 
     
 @ns.route("/comments")

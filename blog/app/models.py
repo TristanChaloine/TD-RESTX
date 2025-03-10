@@ -42,3 +42,36 @@ def create_comment(content, article_id) :
     db.session.add(comment)
     db.session.commit()
     return comment
+
+def modify_article(id, title, content) :
+    article = get_article(id)
+    if article is None:
+        return None
+    article.title = title
+    article.content = content
+    db.session.commit()
+    return article
+
+def modify_comment(id, content) :
+    comment = get_comment(id)
+    if comment is None:
+        return None
+    comment.content = content
+    db.session.commit()
+    return comment
+
+def delete_article(id) :
+    article = get_article(id)
+    if article is None:
+        return None
+    db.session.delete(article)
+    db.session.commit()
+    return article
+
+def delete_comment(id) :
+    comment = get_comment(id)
+    if comment is None:
+        return None
+    db.session.delete(comment)
+    db.session.commit()
+    return comment  
