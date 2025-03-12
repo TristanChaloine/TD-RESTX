@@ -79,4 +79,4 @@ def delete_comment(id) :
         return None
     db.session.delete(comment)
     db.session.commit()
-    return comment 
+    return comment
