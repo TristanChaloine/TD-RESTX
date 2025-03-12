@@ -91,3 +91,21 @@ class CommentItem(Resource):
         if comment is None:
             abort(404, "Comment not found")
         return comment, 204
+    
+@ns.route("/articles/<int:id>/comments")
+class ArticleCommentCollection(Resource):
+    @ns.marshal_list_with(comment_model)
+    def get(self, id):
+        article = get_article(id)
+        if article is None:
+            abort(404, "Article not found")
+        return article.comments
+    
+    @ns.expect(comment_input_model)
+    @ns.marshal_with(comment_model)
+    def post(self, id):
+        article = get_article(id)
+        if article is None:
+            abort(404, "Article not found")
+        comment = create_comment(content=ns.payload["content"], article_id=id)
+        return comment,201

@@ -5,7 +5,8 @@ article_model = api.model("Article", {
     "id": fields.Integer,
     "title": fields.String,
     "content": fields.String,
-    "uri": fields.Url("api_article_item", absolute=True)
+    "uri": fields.Url("api_article_item", absolute=True),
+    "comment_uri": fields.Url("api_article_comment_collection", absolute=True)
 })
 
 comment_model = api.model("Comment", {
