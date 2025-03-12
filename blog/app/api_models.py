@@ -17,11 +17,11 @@ comment_model = api.model("Comment", {
 })
 
 article_input_model = api.model("ArticleInput", {
-    "title": fields.String,
-    "content": fields.String
+    "title": fields.String(required=True),
+    "content": fields.String(required=True)
 })
 
 comment_input_model = api.model("CommentInput", {
-    "content": fields.String,
-    "article_id": fields.Integer
+    "content": fields.String(required=True),
+    "article_id": fields.Integer(required=True)
 })

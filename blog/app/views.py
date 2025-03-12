@@ -17,7 +17,7 @@ class ArticleCollection(Resource):
     def get(self):
         return get_all_articles()
     
-    @ns.expect(article_input_model)
+    @ns.expect(article_input_model,validate=True)
     @ns.marshal_with(article_model)
     def post(self):
         article = create_article(title=ns.payload["title"], content=ns.payload["content"])
@@ -58,7 +58,7 @@ class CommentCollection(Resource):
     def get(self):
         return get_all_comments()
     
-    @ns.expect(comment_input_model)
+    @ns.expect(comment_input_model,validate=True)
     @ns.marshal_with(comment_model)
     def post(self):
         if get_article(ns.payload["article_id"]) is None:
