@@ -54,11 +54,14 @@ def modify_article(id, title, content) :
     db.session.commit()
     return article
 
-def modify_comment(id, content) :
+def modify_comment(id, content,article_id) :
     comment = get_comment(id)
     if comment is None:
         return None
-    comment.content = content
+    if content is not None:
+        comment.content = content
+    if article_id is not None:
+        comment.article_id=article_id
     db.session.commit()
     return comment
 
