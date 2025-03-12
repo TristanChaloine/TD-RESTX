@@ -47,8 +47,10 @@ def modify_article(id, title, content) :
     article = get_article(id)
     if article is None:
         return None
-    article.title = title
-    article.content = content
+    if title is not None:
+        article.title = title
+    if content is not None:
+        article.content = content
     db.session.commit()
     return article
 
@@ -74,4 +76,4 @@ def delete_comment(id) :
         return None
     db.session.delete(comment)
     db.session.commit()
-    return comment  
+    return comment 

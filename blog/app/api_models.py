@@ -4,13 +4,15 @@ from .extensions import api  # Assurez-vous que `api` est bien défini dans votr
 article_model = api.model("Article", {
     "id": fields.Integer,
     "title": fields.String,
-    "content": fields.String
+    "content": fields.String,
+    "uri": fields.Url("api_article_item", absolute=True)
 })
 
 comment_model = api.model("Comment", {
     "id": fields.Integer,
     "content": fields.String,
-    "article_id": fields.Integer
+    "article_id": fields.Integer,
+    "uri": fields.Url("api_comment_item", absolute=True)
 })
 
 article_input_model = api.model("ArticleInput", {

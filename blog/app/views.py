@@ -40,11 +40,16 @@ class ArticleItem(Resource):
     @ns.marshal_with(article_model)
     def put(self, id):
         article = modify_article(id, ns.payload["title"], content=ns.payload["content"])
-        
         if article is None:
             abort(404, "Article not found")
-        
         return article, 200
+    
+    @ns.marshal_with(article_model)
+    def delete(self, id):
+        article = delete_article(id)
+        if article is None:
+            abort(404, "Article not found")
+        return article, 204
 
     
 @ns.route("/comments")
@@ -62,12 +67,27 @@ class CommentCollection(Resource):
         return comment,201
     
 @ns.route("/comments/<int:id>")
-@ns.response(404, "Article not found")
+@ns.response(404, "Comment not found")
 class CommentItem(Resource):
     @ns.marshal_with(comment_model)
     def get(self, id):
-        """Récupère un article par son ID."""
+        """Récupère un commentaire par son ID."""
         comment = get_comment(id)
         if comment is None:
-            abort(404, "Article not found")
+            abort(404, "Comment not found")
         return comment
+    
+    ns.expect(comment_input_model)
+    @ns.marshal_with(comment_model)
+    def put(self, id):
+        comment = modify_comment(id, ns.payload["content"])
+        if comment is None:
+            abort(404, "Comment not found")
+        return comment, 200
+    
+    @ns.marshal_with(comment_model)
+    def delete(self, id):
+        comment = delete_comment(id)
+        if comment is None:
+            abort(404, "Comment not found")
+        return comment, 204
